@@ -1,7 +1,3 @@
-"""Raspberry Pi Face Recognition Treasure Box
-Treasure Box Script
-Copyright 2013 Tony DiCola 
-"""
 import cv2
 
 import config
@@ -17,21 +13,10 @@ if __name__ == '__main__':
         print 'Training data loaded!'
         # Initialize camer and box.
         camera = config.get_camera()
-#       box = hardware.Box()
-        # Move box to locked position.
-#       box.lock()
         print 'Running box...'
         print 'Press button to lock (if unlocked), or unlock if the correct face is detected.'
         print 'Press Ctrl-C to quit.'
         while True:
-                # Check if capture should be made.
-                # TODO: Check if button is pressed.
-#               if box.is_button_up():
-#                       if not box.is_locked:
-                                # Lock the box if it is unlocked
-#                               box.lock()
-#                               print 'Box is now locked.'
-#                       else:
                                 print 'Button pressed, looking for face...'
                                 # Check for the positive face and unlock if found.
                                 image = camera.read()
@@ -47,11 +32,6 @@ if __name__ == '__main__':
                                 # Crop and resize image to face.
                                 crop = face.resize(face.crop(image, x, y, w, h))
                                 # Test face against model.
-   #                             result = cv2.face.MinDistancePredictCollector()
-    #                            recognizer = cv2.face.createEigenFaceRecognizer()
-     #                           recognizer.predict(crop,result, 0)
-      #                          label = result.getLabel()
-       #                         confidence = result.getDist()
                                 confidence = 0.00
                                 label = model.predict(crop)
                                 print 'Predicted {0} face with confidence {1} (lower is more confident).'.format(
@@ -59,6 +39,5 @@ if __name__ == '__main__':
                                         confidence)
                                 if label == config.POSITIVE_LABEL:
                                         print 'Recognized face!'
-#                                       box.unlock()
                                 else:
                                         print 'Did not recognize face!'
